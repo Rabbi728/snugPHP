@@ -1,0 +1,14 @@
+{
+    "name": "rabbi728/php-framework",
+    "description": "A simple PHP MVC framework",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+    }
+}
