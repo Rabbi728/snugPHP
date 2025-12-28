@@ -6,6 +6,13 @@ use Core\Response;
 use Core\Database;
 
 class ApiController {
+
+    public function index() {
+        
+        $response = new Response();
+        $response->json(['message' => 'API Home']);
+    }
+
     public function users() {
         $response = new Response();
         $users = Database::table('users')->get();

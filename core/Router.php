@@ -133,7 +133,7 @@ class Router {
         }
         
         // Build controller class name
-        $controllerClass = "App\\Controllers\\{$controller}";
+        $controllerClass = "App\\controllers\\{$controller}";
         
         // Check if controller exists
         if (!class_exists($controllerClass)) {
@@ -148,6 +148,7 @@ class Router {
         }
         
         // Call the controller method with params
-        return call_user_func_array([$controllerInstance, $action], $params);
+        call_user_func_array([$controllerInstance, $action], $params);
+        return true;
     }
 }
