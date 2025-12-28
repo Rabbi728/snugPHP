@@ -9,6 +9,29 @@ use App\Middlewares\AuthMiddleware;
 
 $router = new Router();
 
+/**
+ * AUTO ROUTING SYSTEM
+ * 
+ * When auto_routing is enabled in config/app.php, you don't need to define routes here.
+ * The system will automatically route based on URL pattern:
+ * 
+ * URL Pattern: /controller/method/param1/param2
+ * 
+ * Examples:
+ * /user/show/123          -> UserController->show(123)
+ * /home/about             -> HomeController->about()
+ * /api/users              -> ApiController->users()
+ * /                       -> HomeController->index()
+ * 
+ * Controllers should be in: app/controllers/
+ * Controller naming: {Name}Controller.php
+ * 
+ * If you want manual routing, set 'auto_routing' => false in config/app.php
+ * and define your routes below:
+ */
+
+// Manual routes (optional - only used if you need custom routing)
+
 // Home page
 $router->get('/', function() {
     View::render('home', [

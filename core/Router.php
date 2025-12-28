@@ -6,6 +6,15 @@ class Router {
     private $routes = [];
     private $middlewares = [];
     private $groupMiddlewares = [];
+    private $autoRouting = false;
+    
+    public function enableAutoRouting() {
+        $this->autoRouting = true;
+    }
+    
+    public function disableAutoRouting() {
+        $this->autoRouting = false;
+    }
     
     public function get($path, $callback) {
         $this->addRoute('GET', $path, $callback);
@@ -59,6 +68,7 @@ class Router {
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         
+        // Try manual routes first
         foreach ($this->routes as $route) {
             $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[^/]+)', $route['path']);
             $pattern = '#^' . $pattern . '$#';
@@ -87,7 +97,57 @@ class Router {
             }
         }
         
+        // Try auto routing if enabled
+        if ($this->autoRouting) {
+            $result = $this->autoRoute($uri, $method);
+            if ($result !== null) {
+                return $result;
+            }
+        }
+        
         http_response_code(404);
         View::render('errors/404');
+    }
+    
+    private function autoRoute($uri, $method) {
+        // Remove leading/trailing slashes
+        $uri = trim($uri, '/');
+        
+        // Split URI into segments
+        $segments = $uri ? explode('/', $uri) : [];
+        
+        // Default to home if no segments
+        if (empty($segments)) {
+            $controller = 'HomeController';
+            $action = 'index';
+            $params = [];
+        } else {
+            // First segment is controller
+            $controller = ucfirst($segments[0]) . 'Controller';
+            
+            // Second segment is action (method), default to index
+            $action = isset($segments[1]) ? $segments[1] : 'index';
+            
+            // Rest are parameters
+            $params = array_slice($segments, 2);
+        }
+        
+        // Build controller class name
+        $controllerClass = "App\\Controllers\\{$controller}";
+        
+        // Check if controller exists
+        if (!class_exists($controllerClass)) {
+            return null;
+        }
+        
+        $controllerInstance = new $controllerClass();
+        
+        // Check if method exists
+        if (!method_exists($controllerInstance, $action)) {
+            return null;
+        }
+        
+        // Call the controller method with params
+        return call_user_func_array([$controllerInstance, $action], $params);
     }
 }

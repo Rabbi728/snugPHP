@@ -7,13 +7,22 @@ use PDOException;
 
 class Database {
     private static $instance = null;
-    private $connection;
+    private static $config = null;
+    private $connection = null;
     
     private function __construct($config) {
-        $dsn = "mysql:host={$config['host']};dbname={$config['database']};charset=utf8mb4";
+        self::$config = $config;
+    }
+    
+    private function connect() {
+        if ($this->connection !== null) {
+            return $this->connection;
+        }
+        
+        $dsn = "mysql:host=" . self::$config['host'] . ";dbname=" . self::$config['database'] . ";charset=utf8mb4";
         
         try {
-            $this->connection = new PDO($dsn, $config['username'], $config['password'], [
+            $this->connection = new PDO($dsn, self::$config['username'], self::$config['password'], [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false
@@ -21,9 +30,11 @@ class Database {
         } catch (PDOException $e) {
             die("Database connection failed: " . $e->getMessage());
         }
+        
+        return $this->connection;
     }
     
-    public static function connect($config) {
+    public static function init($config) {
         if (self::$instance === null) {
             self::$instance = new self($config);
         }
@@ -31,11 +42,21 @@ class Database {
     }
     
     public static function table($table) {
-        return new QueryBuilder(self::$instance->connection, $table);
+        if (self::$instance === null) {
+            die("Database not initialized. Call Database::init() first.");
+        }
+        
+        $connection = self::$instance->connect();
+        return new QueryBuilder($connection, $table);
     }
     
-    public function raw($sql, $params = []) {
-        $stmt = $this->connection->prepare($sql);
+    public static function raw($sql, $params = []) {
+        if (self::$instance === null) {
+            die("Database not initialized. Call Database::init() first.");
+        }
+        
+        $connection = self::$instance->connect();
+        $stmt = $connection->prepare($sql);
         $stmt->execute($params);
         return $stmt;
     }
