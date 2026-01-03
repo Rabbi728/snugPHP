@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'host' => 'localhost',
-    'database' => 'your_database',
-    'username' => 'root',
-    'password' => ''
+    'host' => env('DB_HOST', 'localhost'),
+    'database' => env('DB_DATABASE', 'tmp'),
+    'username' => env('DB_USERNAME', 'root'),
+    'password' => env('DB_PASSWORD', '')
 ];

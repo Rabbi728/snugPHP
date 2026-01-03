@@ -4,11 +4,17 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Core\\": "core/",
             "App\\": "app/"
         }
     },
     "require": {
-        "php": ">=7.4"
-    }
+        "php": ">=7.4",
+        "snugphp/framework": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Rabbi728/snugphp-framework.git"
+        }
+    ]
 }

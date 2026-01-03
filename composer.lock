@@ -1,0 +1,64 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "8893b7b64a90368c12d4c61bd6a94fec",
+    "packages": [
+        {
+            "name": "snugphp/framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Rabbi728/snugphp-framework.git",
+                "reference": "a8b38518c24f36c1b237d9885a722da28fa5b00a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Rabbi728/snugphp-framework/zipball/a8b38518c24f36c1b237d9885a722da28fa5b00a",
+                "reference": "a8b38518c24f36c1b237d9885a722da28fa5b00a",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SnugPHP\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rabbi Ahamed",
+                    "email": "rabbiahamed0728@gmail.com",
+                    "homepage": "https://github.com/rabbi728"
+                }
+            ],
+            "description": "A simple PHP framework",
+            "keywords": [
+                "PHP Framework"
+            ],
+            "support": {
+                "source": "https://github.com/Rabbi728/snugphp-framework/tree/master",
+                "issues": "https://github.com/Rabbi728/snugphp-framework/issues"
+            },
+            "time": "2026-01-03T13:58:48+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "snugphp/framework": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.4"
+    },
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}

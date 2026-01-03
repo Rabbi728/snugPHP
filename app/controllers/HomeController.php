@@ -2,18 +2,12 @@
 
 namespace App\Controllers;
 
-use Core\View;
-
 class HomeController {
 
     public function index() {
-        View::render('home', [
-            'title' => 'Welcome to Auto Routing'
+        json([
+            'message' => 'Hello SlugPHP!'
         ]);
-    }
-    
-    public function about() {
-        View::render('about');
     }
     
 }
