@@ -1,5 +1,5 @@
 {
-    "name": "slugphp/starter",
+    "name": "snugphp/starter",
     "description": "A simple PHP MVC framework",
     "type": "project",
     "autoload": {
