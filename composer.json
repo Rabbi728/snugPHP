@@ -1,5 +1,5 @@
 {
-    "name": "rabbi728/php-framework",
+    "name": "slugphp/starter",
     "description": "A simple PHP MVC framework",
     "type": "project",
     "autoload": {
