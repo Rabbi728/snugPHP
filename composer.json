@@ -1,5 +1,4 @@
 {
-    "$schema": "https://getcomposer.org/schema.json",
     "name": "snugphp/starter",
     "description": "A simple PHP framework",
     "type": "project",
